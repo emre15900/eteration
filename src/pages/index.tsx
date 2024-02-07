@@ -2,15 +2,23 @@ import React from "react";
 import Header from "@/components/header";
 import { Grid, Typography, Container } from "@mui/material";
 import Sorter from "@/components/sorter";
+import Brands from "@/components/brands";
 
 function HomePage() {
   return (
     <div style={{ width: "100%" }}>
       <Header />
-      <Container maxWidth="xl" sx={{ mt: 3}}>
+      <Container maxWidth="xl" sx={{ mt: 3 }}>
         <Grid container spacing={6}>
           <Grid item xs={12} sm={3} md={3}>
-            <Sorter />
+            <Grid>
+              <Grid>
+                <Sorter />
+              </Grid>
+              <Grid sx={{ mt: 2}}>
+                <Brands />
+              </Grid>
+            </Grid>
           </Grid>
           <Grid item xs={12} sm={7} md={7}>
             <Typography sx={{ color: "#000000" }}>Main</Typography>
