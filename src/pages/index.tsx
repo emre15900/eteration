@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "@/components/header";
-import { Grid, Typography, Container } from "@mui/material";
+import { Grid, Typography, Container, Divider } from "@mui/material";
 import Sorter from "@/components/sorter";
 import Brands from "@/components/brands";
+import ProductCard from "@/components/productCard";
+import axios from "axios";
 
 function HomePage() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const [selectedBrands, setSelectedBrands] = useState(["apple"]);
   const [selectedModels, setSelectedModels] = useState(["iphone13"]);
 
@@ -37,6 +42,22 @@ function HomePage() {
   console.log("Brands:", selectedBrands);
   console.log("Models:", selectedModels);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://5fc9346b2af77700165ae514.mockapi.io/products"
+        );
+        setProducts(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const brands = [
     { label: "Apple", value: "apple" },
     { label: "Samsung", value: "samsung" },
@@ -53,7 +74,7 @@ function HomePage() {
     <div style={{ width: "100%" }}>
       <Header />
       <Container maxWidth="xl" sx={{ mt: 3 }}>
-        <Grid container spacing={6}>
+        <Grid container spacing={2}>
           <Grid item xs={12} sm={3} md={3}>
             <Grid>
               <Grid>
@@ -78,7 +99,28 @@ function HomePage() {
             </Grid>
           </Grid>
           <Grid item xs={12} sm={7} md={7}>
-            <Typography sx={{ color: "#000000" }}>Main</Typography>
+            <Grid>
+              <Typography
+                variant="h4"
+                sx={{ color: "#ffffff", mb: 1, fontWeight: 900 }}
+              >
+                Products
+              </Typography>
+              <Divider flexItem sx={{ background: "#ffffff", mb: 2 }} />
+              {loading ? (
+                <Typography variant="h6" sx={{ color: "#ffffff", mt: 2 }}>
+                  Loading...
+                </Typography>
+              ) : (
+                <Grid container spacing={1}>
+                  {products.map((product: any) => (
+                    <Grid item xs={12} sm={6} md={4} lg={3}>
+                      <ProductCard product={product} />
+                    </Grid>
+                  ))}
+                </Grid>
+              )}
+            </Grid>
           </Grid>
           <Grid item xs={12} sm={2} md={2}>
             <Sorter />
