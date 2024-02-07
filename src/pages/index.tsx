@@ -6,6 +6,7 @@ import Brands from "@/components/brands";
 
 function HomePage() {
   const [selectedBrands, setSelectedBrands] = useState(["apple"]);
+  const [selectedModels, setSelectedModels] = useState(["iphone13"]);
 
   const handleBrandChange = (event: any) => {
     const brand = event.target.value;
@@ -20,12 +21,32 @@ function HomePage() {
     });
   };
 
+  const handleModelChange = (event: any) => {
+    const model = event.target.value;
+    setSelectedModels((prevSelectedModels) => {
+      if (prevSelectedModels.includes(model)) {
+        return prevSelectedModels.filter(
+          (selectedModel) => selectedModel !== model
+        );
+      } else {
+        return [...prevSelectedModels, model];
+      }
+    });
+  };
+
   console.log("Brands:", selectedBrands);
+  console.log("Models:", selectedModels);
 
   const brands = [
     { label: "Apple", value: "apple" },
     { label: "Samsung", value: "samsung" },
     { label: "Huawei", value: "huawei" },
+  ];
+
+  const models = [
+    { label: "iPhone 11", value: "iphone11" },
+    { label: "iPhone 12", value: "iphone12" },
+    { label: "iPhone 13", value: "iphone13" },
   ];
 
   return (
@@ -40,9 +61,18 @@ function HomePage() {
               </Grid>
               <Grid sx={{ mt: 2 }}>
                 <Brands
+                  title="Brands"
                   brands={brands}
                   selectedBrands={selectedBrands}
                   onBrandChange={handleBrandChange}
+                />
+              </Grid>
+              <Grid sx={{ mt: 2 }}>
+                <Brands
+                  title="Models"
+                  brands={models}
+                  selectedBrands={selectedModels}
+                  onBrandChange={handleModelChange}
                 />
               </Grid>
             </Grid>

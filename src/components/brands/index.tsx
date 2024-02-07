@@ -9,13 +9,13 @@ import {
   Divider,
 } from "@mui/material";
 
-function Brands({ brands, selectedBrands, onBrandChange }: any) {
+function Brands({ brands, selectedBrands, onBrandChange, title }: any) {
   return (
     <Grid>
       <Card
         sx={{ background: "#000000", borderRadius: "20px", padding: "20px" }}
       >
-        <Typography sx={{ color: "#ffffff", fontSize: 17 }}>Brands</Typography>
+        <Typography sx={{ color: "#ffffff", fontSize: 17 }}>{title}</Typography>
         <Divider sx={{ background: "#ffffff", mt: 1, mb: 1 }} />
         <FormGroup>
           {brands.map((brand: any) => (
