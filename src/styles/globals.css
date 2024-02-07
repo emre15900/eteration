@@ -103,3 +103,29 @@ a {
     color-scheme: dark;
   }
 }
+
+.pagination {
+  display: flex;
+  list-style-type: none;
+  justify-content: center;
+  padding: 0;
+}
+
+.pagination li {
+  margin: 0 3px;
+}
+
+.pagination li a {
+  text-decoration: none;
+  color: #000;
+  background-color: #eee;
+  padding: 8px 1rem;
+  border-radius: 50px;
+  font-size: 20px;
+}
+
+.pagination li.active a {
+  background-color: #66ff84;
+  color: #fff;
+  font-weight: 700;
+}

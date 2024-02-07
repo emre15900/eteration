@@ -6,12 +6,17 @@ import Brands from "@/components/brands";
 import ProductCard from "@/components/productCard";
 import axios from "axios";
 
+import Pagination from "react-js-pagination";
+
 function HomePage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const [selectedBrands, setSelectedBrands] = useState(["apple"]);
   const [selectedModels, setSelectedModels] = useState(["iphone13"]);
+
+  const [activePage, setActivePage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(12);
 
   const handleBrandChange = (event: any) => {
     const brand = event.target.value;
@@ -70,6 +75,14 @@ function HomePage() {
     { label: "iPhone 13", value: "iphone13" },
   ];
 
+  const handlePageChange = (pageNumber: number) => {
+    setActivePage(pageNumber);
+  };
+
+  const indexOfLastItem = activePage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
+
   return (
     <div style={{ width: "100%" }}>
       <Header />
@@ -112,13 +125,26 @@ function HomePage() {
                   Loading...
                 </Typography>
               ) : (
-                <Grid container spacing={1}>
-                  {products.map((product: any) => (
-                    <Grid item xs={12} sm={6} md={4} lg={3}>
-                      <ProductCard product={product} />
-                    </Grid>
-                  ))}
-                </Grid>
+                <>
+                  <Grid container spacing={1}>
+                    {currentItems.map((product: any) => (
+                      <Grid item xs={12} sm={6} md={4} lg={3}>
+                        <ProductCard product={product} />
+                      </Grid>
+                    ))}
+                  </Grid>
+                  <Grid sx={{ mt: 6, mb: 10 }}>
+                    <Pagination
+                      activePage={activePage}
+                      itemsCountPerPage={itemsPerPage}
+                      totalItemsCount={products.length}
+                      pageRangeDisplayed={5}
+                      onChange={handlePageChange}
+                      itemClass="page-item"
+                      linkClass="page-link"
+                    />
+                  </Grid>
+                </>
               )}
             </Grid>
           </Grid>
