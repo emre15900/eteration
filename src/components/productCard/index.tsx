@@ -51,7 +51,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       sx={{
         width: "100%",
         borderRadius: "20px",
-        padding: "10px",
+        padding: "10px 10px 3px 10px",
         background: "#000000",
       }}
     >

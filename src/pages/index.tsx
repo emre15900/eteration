@@ -7,6 +7,8 @@ import ProductCard from "@/components/productCard";
 import axios from "axios";
 
 import Pagination from "react-js-pagination";
+import Cart from "@/components/cart";
+import CheckOut from "@/components/checkout";
 
 function HomePage() {
   const [products, setProducts] = useState([]);
@@ -115,9 +117,16 @@ function HomePage() {
             <Grid>
               <Typography
                 variant="h4"
-                sx={{ color: "#ffffff", mb: 1, fontWeight: 900 }}
+                sx={{
+                  color: "#ffffff",
+                  mb: 2,
+                  fontWeight: 900,
+                  background: "#000000",
+                  padding: "10px 15px",
+                  borderRadius: "20px",
+                }}
               >
-                Products
+                Products List
               </Typography>
               <Divider flexItem sx={{ background: "#ffffff", mb: 2 }} />
               {loading ? (
@@ -149,7 +158,12 @@ function HomePage() {
             </Grid>
           </Grid>
           <Grid item xs={12} sm={2} md={2}>
-            <Sorter />
+            <Grid>
+              <Cart />
+            </Grid>
+            <Grid sx={{ mt: 2 }}>
+              <CheckOut />
+            </Grid>
           </Grid>
         </Grid>
       </Container>
