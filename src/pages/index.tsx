@@ -7,7 +7,7 @@ function HomePage() {
 
   return (
     <div style={{ width: "100%" }}>
-      <h1>Hello Eteration!</h1>
+      <h1 className={styles.hello}>Hello Eteration!</h1>
     </div>
   );
 }
