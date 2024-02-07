@@ -1,13 +1,23 @@
 import React from "react";
-import styles from "../styles/global.module.css";
+import Header from "@/components/header";
+import { Grid, Typography } from "@mui/material";
+import Sorter from "@/components/sorter";
 
 function HomePage() {
-  console.log(styles);
-  console.log("Hello Eteration!");
-
   return (
     <div style={{ width: "100%" }}>
-      <h1 className={styles.hello}>Hello Eteration!</h1>
+      <Header />
+      <Grid container spacing={6}>
+        <Grid item xs={12} sm={3} md={3}>
+          <Sorter />
+        </Grid>
+        <Grid item xs={12} sm={7} md={7}>
+          <Typography sx={{ color: "#000000" }}>Main</Typography>
+        </Grid>
+        <Grid item xs={12} sm={2} md={2}>
+          <Sorter />
+        </Grid>
+      </Grid>
     </div>
   );
 }
