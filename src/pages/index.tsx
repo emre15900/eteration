@@ -24,6 +24,12 @@ function HomePage() {
 
   console.log("searchQuery:", searchQuery);
 
+  const filteredProducts = searchQuery
+    ? products.filter((product: any) =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : products;
+
   const [activePage, setActivePage] = useState(1);
   const itemsPerPage = 12;
 
@@ -34,10 +40,13 @@ function HomePage() {
   const handlePageChange = (pageNumber: number) => {
     setActivePage(pageNumber);
   };
-
+  
   const indexOfLastItem = activePage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredProducts.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   const [selectedBrands, setSelectedBrands] = useState(["apple"]);
   const [selectedModels, setSelectedModels] = useState(["iphone13"]);
