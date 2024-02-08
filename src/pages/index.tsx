@@ -98,7 +98,6 @@ function HomePage() {
 
   return (
     <Grid style={{ width: "100%" }}>
-      <Header />
       <Container maxWidth="xl" sx={{ mt: 3 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={3} md={3}>
