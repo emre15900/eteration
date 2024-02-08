@@ -4,21 +4,37 @@ import { Grid, Typography, Container, Divider } from "@mui/material";
 import Sorter from "@/components/sorter";
 import Brands from "@/components/brands";
 import ProductCard from "@/components/productCard";
-import axios from "axios";
-
 import Pagination from "react-js-pagination";
 import Cart from "@/components/cart";
 import CheckOut from "@/components/checkout";
 
+import { AppDispatch } from "@/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { fetchProducts } from "@/store/apps/productsSlice";
+
 function HomePage() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const dispatch: AppDispatch = useDispatch();
+
+  const products = useSelector((state: RootState) => state.products.products);
+  const loading = useSelector((state: RootState) => state.products.loading);
+  const [activePage, setActivePage] = useState(1);
+  const itemsPerPage = 12;
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  const handlePageChange = (pageNumber: number) => {
+    setActivePage(pageNumber);
+  };
+
+  const indexOfLastItem = activePage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
 
   const [selectedBrands, setSelectedBrands] = useState(["apple"]);
   const [selectedModels, setSelectedModels] = useState(["iphone13"]);
-
-  const [activePage, setActivePage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(12);
 
   const handleBrandChange = (event: any) => {
     const brand = event.target.value;
@@ -49,22 +65,6 @@ function HomePage() {
   console.log("Brands:", selectedBrands);
   console.log("Models:", selectedModels);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://5fc9346b2af77700165ae514.mockapi.io/products"
-        );
-        setProducts(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   const brands = [
     { label: "Apple", value: "apple" },
     { label: "Samsung", value: "samsung" },
@@ -77,16 +77,8 @@ function HomePage() {
     { label: "iPhone 13", value: "iphone13" },
   ];
 
-  const handlePageChange = (pageNumber: number) => {
-    setActivePage(pageNumber);
-  };
-
-  const indexOfLastItem = activePage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
-
   return (
-    <div style={{ width: "100%" }}>
+    <Grid style={{ width: "100%" }}>
       <Header />
       <Container maxWidth="xl" sx={{ mt: 3 }}>
         <Grid container spacing={2}>
@@ -167,7 +159,7 @@ function HomePage() {
           </Grid>
         </Grid>
       </Container>
-    </div>
+    </Grid>
   );
 }
 

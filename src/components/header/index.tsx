@@ -21,6 +21,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
+import { useDispatch } from "react-redux";
+import { setSearchQuery } from "@/store/apps/searchSlice";
+
 interface userProfile {
   id: number;
   avatar: string;
@@ -43,12 +46,19 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 function Header() {
   const responsive = useMediaQuery("(max-width:728px)");
 
+  const dispatch = useDispatch();
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const searchQuery = event.target.value;
+    dispatch(setSearchQuery(searchQuery));
+  };
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -209,6 +219,7 @@ function Header() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
+              onChange={handleSearch}
             />
           </Search>
 
