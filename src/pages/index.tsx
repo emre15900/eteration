@@ -12,6 +12,8 @@ import { AppDispatch } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { fetchProducts } from "@/store/apps/productsSlice";
+import ShoppingCart from "@/components/shoppingCart";
+import AppCheckout from "@/components/appCheckout";
 
 function HomePage() {
   const dispatch: AppDispatch = useDispatch();
@@ -183,10 +185,12 @@ function HomePage() {
           </Grid>
           <Grid item xs={12} sm={2} md={2}>
             <Grid>
-              <Cart />
+              {/* <Cart /> */}
+              <ShoppingCart />
             </Grid>
             <Grid sx={{ mt: 2 }}>
-              <CheckOut />
+              {/* <CheckOut /> */}
+              <AppCheckout />
             </Grid>
           </Grid>
         </Grid>

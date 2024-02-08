@@ -7,6 +7,8 @@ import ProductDetailCard from "@/components/productDetailCard";
 import { Typography, Grid, Container } from "@mui/material";
 import Cart from "@/components/cart";
 import CheckOut from "@/components/checkout";
+import ShoppingCart from "@/components/shoppingCart";
+import AppCheckout from "@/components/appCheckout";
 
 function ProductDetail() {
   const router = useRouter();
@@ -40,10 +42,12 @@ function ProductDetail() {
         </Grid>
         <Grid item xs={12} sm={3} md={3}>
           <Grid>
-            <Cart />
+            {/* <Cart /> */}
+            <ShoppingCart />
           </Grid>
           <Grid sx={{ mt: 2 }}>
-            <CheckOut />
+            {/* <CheckOut /> */}
+            <AppCheckout />
           </Grid>
         </Grid>
       </Grid>
