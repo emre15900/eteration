@@ -249,14 +249,13 @@ const Header = React.memo(() => {
 
             <Link href="/favorites">
               <Tooltip title="Favorites">
-                <IconButton sx={{ p: 0 }}>
+                <IconButton sx={{ p: 0, ml: .7, mr: 1.7 }}>
                   <Badge badgeContent={favoritesCount} color="error">
                     <FavoriteBorderIcon
                       sx={{
                         fontSize: 32,
                         color: "#ffffff",
-                        ml: 0.7,
-                        mr: 0.7,
+
                         display: { xs: "none", md: "block" },
                       }}
                     />
