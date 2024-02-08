@@ -43,7 +43,7 @@ const user: readonly userProfile[] = [
 const pages = ["Home"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function Header() {
+const Header = React.memo(() => {
   const responsive = useMediaQuery("(max-width:728px)");
 
   const dispatch = useDispatch();
@@ -289,5 +289,6 @@ function Header() {
       </Container>
     </AppBar>
   );
-}
+});
+
 export default Header;

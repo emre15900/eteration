@@ -18,6 +18,12 @@ function HomePage() {
 
   const products = useSelector((state: RootState) => state.products.products);
   const loading = useSelector((state: RootState) => state.products.loading);
+  const searchQuery = useSelector(
+    (state: RootState) => state.search.searchQuery
+  );
+
+  console.log("searchQuery:", searchQuery);
+
   const [activePage, setActivePage] = useState(1);
   const itemsPerPage = 12;
 
@@ -62,8 +68,8 @@ function HomePage() {
     });
   };
 
-  console.log("Brands:", selectedBrands);
-  console.log("Models:", selectedModels);
+//   console.log("Brands:", selectedBrands);
+//   console.log("Models:", selectedModels);
 
   const brands = [
     { label: "Apple", value: "apple" },
