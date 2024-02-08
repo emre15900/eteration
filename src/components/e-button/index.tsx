@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 
 interface EButtonProps {
   title: string;
@@ -8,7 +8,7 @@ interface EButtonProps {
 
 function EButton({ title, padding }: EButtonProps) {
   return (
-    <div>
+    <Grid sx={{ display: "flex", width: "100%" }}>
       <Button
         variant="outlined"
         sx={{
@@ -30,7 +30,7 @@ function EButton({ title, padding }: EButtonProps) {
       >
         {title}
       </Button>
-    </div>
+    </Grid>
   );
 }
 

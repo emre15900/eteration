@@ -10,10 +10,7 @@ import {
 
 import EButton from "@/components/e-button";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-
-import Link from "next/link";
 
 interface Product {
   id: number;
@@ -29,7 +26,7 @@ interface ProductCardProps {
   product: Product;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductDetailCard: React.FC<ProductCardProps> = ({ product }) => {
   const [favorites, setFavorites] = useState(false);
 
   const handleAddToCart = () => {
@@ -39,10 +36,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const handleAddToFavorites = () => {
     console.log(`Added ${product.name} to favorites`);
     setFavorites(!favorites);
-  };
-
-  const handleDetails = () => {
-    console.log(`View details of ${product.name}`);
   };
 
   const limitText = (text: string, maxLength: number) => {
@@ -57,52 +50,54 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       sx={{
         width: "100%",
         borderRadius: "20px",
-        padding: "10px 10px 3px 10px",
+        padding: "15px",
         background: "#000000",
+        display: "flex",
+        gap: 2,
       }}
     >
       <img
         src={product.image}
         alt={product.name}
-        style={{ width: "100%", borderRadius: "15px" }}
+        style={{ width: "100%", borderRadius: "15px", objectFit: "cover" }}
       />
       <Grid style={{ padding: "10px" }}>
+        <Typography sx={{ color: "#ffffff", fontWeight: 900 }}>
+          {product.brand}
+        </Typography>
+        <Typography sx={{ color: "#ffffff" }}>{product.model}</Typography>
+        <Typography variant="subtitle1" sx={{ color: "#ffffff" }}>
+          {product.name}
+        </Typography>
         <Chip
           label={`$ ${product.price}`}
           sx={{ color: "#ffffff", background: "#660061", mb: 1 }}
         />
-        <Typography sx={{ color: "#ffffff", fontWeight: 900 }}>
-          {limitText(product.brand, 15)}
-        </Typography>
-        <Typography sx={{ color: "#ffffff" }}>{product.model}</Typography>
-        <Typography variant="subtitle1" sx={{ color: "#ffffff" }}>
-          {limitText(product.name, 15)}
-        </Typography>
         <Grid
           sx={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
-            width: "100%",
-            mb: 1,
-            mt: 1,
-          }}
-          onClick={handleAddToCart}
-        >
-          <EButton title="Add to Cart" padding="7px 2rem" />
-        </Grid>
-        <Grid
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "space-between",
             gap: 1,
+            mb: 3,
+            mt: 2,
           }}
         >
+          <Grid
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+            }}
+            onClick={handleAddToCart}
+          >
+            <EButton title="Add to Cart" padding="7px 2rem" />
+          </Grid>
           <Grid onClick={handleAddToFavorites}>
             <Grid
               sx={{
-                backgroundColor: favorites ? "#ffffff" : "#66FF84",
+                backgroundColor: "#ffffff",
                 borderRadius: "30px",
                 p: "5px 5.5px",
                 border: favorites ? "1px solid red" : "1px solid rgb(6 159 36)",
@@ -118,7 +113,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                   {favorites ? (
                     <FavoriteIcon
                       sx={{
-                        fontSize: 25,
+                        fontSize: 30,
                         color: "red",
                         "&:hover": {
                           color: "#ffffff",
@@ -128,8 +123,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                   ) : (
                     <FavoriteBorderIcon
                       sx={{
-                        fontSize: 25,
-                        color: "#000000",
+                        fontSize: 30,
+                        color: "#00b223",
                         "&:hover": {
                           color: "#ffffff",
                         },
@@ -140,38 +135,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               </Tooltip>
             </Grid>
           </Grid>
-          <Link href={`/products/${product.id}`}>
-            <Grid
-              sx={{
-                backgroundColor: "#66FF84",
-                borderRadius: "30px",
-                p: "5px 5.5px",
-                border: "1px solid rgb(6 159 36)",
-                "&:hover": {
-                  backgroundColor: "#00b223",
-                  color: "#ffffff",
-                },
-              }}
-            >
-              <Tooltip title="See Details">
-                <IconButton sx={{ p: 0 }}>
-                  <RemoveRedEyeOutlinedIcon
-                    sx={{
-                      fontSize: 25,
-                      color: "#000000",
-                      "&:hover": {
-                        color: "#ffffff",
-                      },
-                    }}
-                  />
-                </IconButton>
-              </Tooltip>
-            </Grid>
-          </Link>
         </Grid>
+
+        <Typography variant="subtitle1" sx={{ color: "#ffffff" }}>
+          {limitText(product.description, 600)}
+        </Typography>
       </Grid>
     </Card>
   );
 };
 
-export default ProductCard;
+export default ProductDetailCard;
