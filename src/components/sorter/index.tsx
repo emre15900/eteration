@@ -17,7 +17,7 @@ function Sorter() {
     setSelectedValue(event.target.value);
   };
 
-  console.log("Sorter:", selectedValue);
+  // console.log("Sorter:", selectedValue);
 
   return (
     <Grid>

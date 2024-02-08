@@ -7,12 +7,12 @@ import {
   Tooltip,
   IconButton,
 } from "@mui/material";
-
 import EButton from "@/components/e-button";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-
+import { useDispatch } from "react-redux";
+import { addItem } from "@/store/apps/cartSlice";
 import Link from "next/link";
 
 interface Product {
@@ -30,19 +30,16 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const dispatch = useDispatch();
   const [favorites, setFavorites] = useState(false);
 
   const handleAddToCart = () => {
-    console.log(`Added ${product.name} to cart`);
+    dispatch(addItem({ ...product, quantity: 1 }));
   };
 
   const handleAddToFavorites = () => {
     console.log(`Added ${product.name} to favorites`);
     setFavorites(!favorites);
-  };
-
-  const handleDetails = () => {
-    console.log(`View details of ${product.name}`);
   };
 
   const limitText = (text: string, maxLength: number) => {
@@ -79,6 +76,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {limitText(product.name, 15)}
         </Typography>
         <Grid
+          onClick={handleAddToCart}
           sx={{
             display: "flex",
             alignItems: "center",
@@ -87,7 +85,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             mb: 1,
             mt: 1,
           }}
-          onClick={handleAddToCart}
         >
           <EButton title="Add to Cart" padding="7px 2rem" />
         </Grid>

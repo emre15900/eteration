@@ -28,7 +28,7 @@ const Brands = React.memo(
       }
     }, [searchValue]);
 
-    console.log("searchValue:", searchValue);
+    // console.log("searchValue:", searchValue);
 
     const filteredBrands = brands.filter((brand: any) =>
       brand.label.toLowerCase().includes(searchValue.toLowerCase())

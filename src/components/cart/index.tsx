@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid, Card, Typography, Divider, Button } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectCartItems,
+  increaseQuantity,
+  decreaseQuantity,
+} from "@/store/apps/cartSlice";
 
 function Cart() {
-  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
 
-  const increaseQuantity = () => {
-    setQuantity(quantity + 1);
+  const handleIncreaseQuantity = (id: number) => {
+    dispatch(increaseQuantity(id));
   };
 
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
+  const handleDecreaseQuantity = (id: number) => {
+    dispatch(decreaseQuantity(id));
   };
 
   return (
@@ -22,48 +27,62 @@ function Cart() {
         sx={{ background: "#000000", borderRadius: "20px", padding: "20px" }}
       >
         <Typography sx={{ color: "#ffffff", fontSize: 17 }}>Cart</Typography>
-        <Divider sx={{ background: "#ffffff", mt: 1, mb: 1 }} />
-        <Grid sx={{ display: "flex", flexDirection: "column" }}>
-          <Grid
+        <Divider sx={{ background: "#ffffff", mb: 1, mt: 1 }} />
+        {cartItems.length === 0 ? (
+          <Typography
             sx={{
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "column",
+              color: "#ffffff",
+              fontSize: 16,
+              textAlign: "center",
+              mt: 2,
             }}
           >
+            Your cart is empty, please add items
+          </Typography>
+        ) : (
+          cartItems.map((item) => (
             <Grid
+              key={item.id}
               sx={{
-                mt: 1.5,
                 display: "flex",
-                justifyContent: "space-between",
                 alignItems: "center",
-                width: "100%",
-                gap: 2,
+                flexDirection: "column",
               }}
             >
-              <Typography variant="subtitle2" sx={{ color: "#ffffff" }}>
-                Samsung s22
-              </Typography>
-              <Typography
-                variant="subtitle2"
-                sx={{ color: "#66FF84", fontWeight: 800 }}
+              <Grid
+                sx={{
+                  mt: 1.5,
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: "100%",
+                  gap: 2,
+                }}
               >
-                12.000₺
-              </Typography>
+                <Typography variant="subtitle2" sx={{ color: "#ffffff" }}>
+                  {item.name}
+                </Typography>
+                <Typography
+                  variant="subtitle2"
+                  sx={{ color: "#66FF84", fontWeight: 800 }}
+                >
+                  {item.price * item.quantity}₺
+                </Typography>
+              </Grid>
+              <Grid sx={{ display: "flex", alignItems: "center", mt: 0.5 }}>
+                <Button onClick={() => handleDecreaseQuantity(item.id)}>
+                  <RemoveCircleIcon sx={{ color: "#ffffff" }} />
+                </Button>
+                <Typography variant="subtitle1" sx={{ color: "#ffffff" }}>
+                  {item.quantity}
+                </Typography>
+                <Button onClick={() => handleIncreaseQuantity(item.id)}>
+                  <AddCircleIcon sx={{ color: "#ffffff" }} />
+                </Button>
+              </Grid>
             </Grid>
-            <Grid sx={{ display: "flex", alignItems: "center", mt: 0.5 }}>
-              <Button onClick={decreaseQuantity}>
-                <RemoveCircleIcon sx={{ color: "#ffffff" }} />
-              </Button>
-              <Typography variant="subtitle1" sx={{ color: "#ffffff" }}>
-                {quantity}
-              </Typography>
-              <Button onClick={increaseQuantity}>
-                <AddCircleIcon sx={{ color: "#ffffff" }} />
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
+          ))
+        )}
       </Card>
     </Grid>
   );

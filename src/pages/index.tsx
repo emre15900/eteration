@@ -22,7 +22,7 @@ function HomePage() {
     (state: RootState) => state.search.searchQuery
   );
 
-  console.log("searchQuery:", searchQuery);
+  // console.log("searchQuery:", searchQuery);
 
   const filteredProducts = searchQuery
     ? products.filter((product: any) =>
@@ -32,7 +32,7 @@ function HomePage() {
 
   const totalFilteredItemsCount = filteredProducts.length;
 
-  console.log("filteredProducts:", filteredProducts);
+  // console.log("filteredProducts:", filteredProducts);
 
   const [activePage, setActivePage] = useState(1);
   const itemsPerPage = 12;

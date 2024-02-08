@@ -11,6 +11,8 @@ import {
 import EButton from "@/components/e-button";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useDispatch } from "react-redux";
+import { addItem } from "@/store/apps/cartSlice";
 
 interface Product {
   id: number;
@@ -27,10 +29,12 @@ interface ProductCardProps {
 }
 
 const ProductDetailCard: React.FC<ProductCardProps> = ({ product }) => {
+  const dispatch = useDispatch();
+
   const [favorites, setFavorites] = useState(false);
 
   const handleAddToCart = () => {
-    console.log(`Added ${product.name} to cart`);
+    dispatch(addItem({ ...product, quantity: 1 }));
   };
 
   const handleAddToFavorites = () => {
