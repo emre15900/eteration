@@ -7,7 +7,9 @@ import {
   selectCartItems,
   increaseQuantity,
   decreaseQuantity,
+  clearCart,
 } from "@/store/apps/cartSlice";
+import EButton from "../e-button";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -19,6 +21,10 @@ function Cart() {
 
   const handleDecreaseQuantity = (id: number) => {
     dispatch(decreaseQuantity(id));
+  };
+
+  const handleClearCart = () => {
+    dispatch(clearCart());
   };
 
   return (
@@ -76,7 +82,10 @@ function Cart() {
                   variant="subtitle2"
                   sx={{ color: "#66FF84", fontWeight: 800 }}
                 >
-                  {item.price * item.quantity}₺
+                  {(item.price * item.quantity).toLocaleString("tr-TR", {
+                    style: "currency",
+                    currency: "TRY",
+                  })}
                 </Typography>
               </Grid>
               <Grid sx={{ display: "flex", alignItems: "center", mt: 0.5 }}>
@@ -92,6 +101,34 @@ function Cart() {
               </Grid>
             </Grid>
           ))
+        )}
+        {cartItems.length > 0 && (
+          <Grid
+            onClick={handleClearCart}
+            sx={{ display: "flex", width: "100%", mt: 2 }}
+          >
+            <Button
+              variant="outlined"
+              sx={{
+                width: "100%",
+                backgroundColor: "#660061",
+                color: "#ffffff",
+                padding: "7px 2rem",
+                borderRadius: "30px",
+                fontWeight: 700,
+                cursor: "pointer",
+                border: "1px solid #660061",
+                textTransform: "none",
+                whiteSpace: "nowrap",
+                "&:hover": {
+                  backgroundColor: "#9c3b97",
+                  color: "#ffffff",
+                },
+              }}
+            >
+              Clear Cart
+            </Button>
+          </Grid>
         )}
       </Card>
     </Grid>

@@ -14,9 +14,14 @@ function CheckOut() {
     0
   );
 
+  const formattedTotalPrice = totalPrice.toLocaleString("tr-TR", {
+    style: "currency",
+    currency: "TRY",
+  });
+
   const notify = () =>
     toast.success(
-      `Your order has been received! Total Payment: ${totalPrice}₺`
+      `Your order has been received! Total Payment: ${formattedTotalPrice}₺`
     );
 
   return (
@@ -31,7 +36,7 @@ function CheckOut() {
         <Grid sx={{ mt: 1.5, display: "flex", alignItems: "center", gap: 1 }}>
           <Typography sx={{ color: "#ffffff" }}>Total Price:</Typography>
           <Typography sx={{ color: "#66FF84", fontWeight: 800 }}>
-            {totalPrice}₺
+            {formattedTotalPrice}
           </Typography>
         </Grid>
         <Grid onClick={notify} sx={{ mt: 1.5 }}>

@@ -66,11 +66,20 @@ export const cartSlice = createSlice({
         saveCartItemsToStorage(state.items);
       }
     },
+    clearCart: (state) => {
+      state.items = [];
+      saveCartItemsToStorage(state.items);
+    },
   },
 });
 
-export const { addItem, removeItem, increaseQuantity, decreaseQuantity } =
-  cartSlice.actions;
+export const {
+  addItem,
+  removeItem,
+  increaseQuantity,
+  decreaseQuantity,
+  clearCart,
+} = cartSlice.actions;
 
 export const selectCartItems = (state: RootState) => state.cart.items;
 
