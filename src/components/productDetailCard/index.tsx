@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Typography,
   Card,
@@ -12,9 +12,9 @@ import {
 import EButton from "@/components/e-button";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "@/store/apps/cartSlice";
-import { addToFavorites } from "@/store/apps/favoritesSlice";
+import { addToFavorites, selectFavorites } from "@/store/apps/favoritesSlice";
 
 interface Product {
   id: number;
@@ -32,18 +32,26 @@ interface ProductCardProps {
 
 const ProductDetailCard: React.FC<ProductCardProps> = ({ product }) => {
   const bigScreen = useMediaQuery("(max-width:1300px)");
-
   const dispatch = useDispatch();
+  const favorites = useSelector(selectFavorites);
 
-  const [favorites, setFavorites] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    setIsFavorite(favorites.includes(product.id));
+  }, [favorites, product.id]);
 
   const handleAddToCart = () => {
     dispatch(addItem({ ...product, quantity: 1 }));
   };
 
-  const handleAddToFavorites = () => {
-    dispatch(addToFavorites(product.id));
-    setFavorites(!favorites);
+  const handleToggleFavorites = () => {
+    if (isFavorite) {
+      dispatch(addToFavorites(product.id));
+    } else {
+      dispatch(addToFavorites(product.id));
+    }
+    setIsFavorite(!isFavorite);
   };
 
   const limitText = (text: string, maxLength: number) => {
@@ -103,13 +111,13 @@ const ProductDetailCard: React.FC<ProductCardProps> = ({ product }) => {
           >
             <EButton title="Add to Cart" padding="7px 2rem" />
           </Grid>
-          <Grid onClick={handleAddToFavorites}>
+          <Grid onClick={handleToggleFavorites}>
             <Grid
               sx={{
-                backgroundColor: "#ffffff",
+                backgroundColor: isFavorite ? "#ffffff" : "#66FF84",
                 borderRadius: "30px",
                 p: "5px 5.5px",
-                border: favorites ? "1px solid red" : "1px solid rgb(6 159 36)",
+                border: isFavorite ? "1px solid red" : "1px solid rgb(6 159 36)",
                 "&:hover": {
                   border: "1px solid rgb(6 159 36)",
                   backgroundColor: "#00b223",
@@ -119,7 +127,7 @@ const ProductDetailCard: React.FC<ProductCardProps> = ({ product }) => {
             >
               <Tooltip title="Favorites">
                 <IconButton sx={{ p: 0 }}>
-                  {favorites ? (
+                  {isFavorite ? (
                     <FavoriteIcon
                       sx={{
                         fontSize: 30,
@@ -133,7 +141,7 @@ const ProductDetailCard: React.FC<ProductCardProps> = ({ product }) => {
                     <FavoriteBorderIcon
                       sx={{
                         fontSize: 30,
-                        color: "#00b223",
+                        color: "#000000",
                         "&:hover": {
                           color: "#ffffff",
                         },

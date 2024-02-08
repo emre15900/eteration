@@ -5,9 +5,13 @@ interface FavoritesState {
   items: number[];
 }
 
-const initialState: FavoritesState = {
+let initialState: FavoritesState = {
   items: [],
 };
+
+if (typeof window !== 'undefined') {
+  initialState.items = JSON.parse(localStorage.getItem("favorites") || "[]");
+}
 
 const favoritesSlice = createSlice({
   name: "favorites",
@@ -19,6 +23,10 @@ const favoritesSlice = createSlice({
         state.items.push(productId);
       } else {
         state.items = state.items.filter((id) => id !== productId);
+      }
+
+      if (typeof window !== 'undefined') {
+        localStorage.setItem("favorites", JSON.stringify(state.items));
       }
     },
   },

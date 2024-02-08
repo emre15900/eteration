@@ -1,19 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectFavorites } from "@/store/apps/favoritesSlice";
 import { RootState } from "@/store/store";
 import { Typography, Grid, Container } from "@mui/material";
-import ProductDetail from "../products/[id]";
-import ProductDetailCard from "@/components/productDetailCard";
 import ProductCard from "@/components/productCard";
+import { Product } from "@/interfaces/product";
 
 const Favorites = () => {
+  const [favoriteProducts, setFavoriteProducts] = useState<
+    Product[] | undefined
+  >(undefined);
   const favoriteIds = useSelector((state: RootState) => selectFavorites(state));
   const products = useSelector((state: RootState) => state.products.products);
 
-  const favoriteProducts = products.filter((product) =>
-    favoriteIds.includes(product.id)
-  );
+  useEffect(() => {
+    const storedFavorites = localStorage.getItem("favorites");
+    if (storedFavorites) {
+      const parsedFavorites: number[] = JSON.parse(storedFavorites);
+      const filteredProducts = products.filter((product: Product) =>
+        parsedFavorites.includes(product.id)
+      );
+      setFavoriteProducts(filteredProducts);
+    }
+  }, [products]);
 
   return (
     <Container maxWidth="xl">
@@ -25,13 +34,12 @@ const Favorites = () => {
           Favorites
         </Typography>
         <Grid container spacing={3}>
-          {favoriteProducts.map((product) => (
-            <Grid item sm={12} md={4} lg={3}>
-              <Grid>
-                <ProductCard key={product.id} product={product} />
+          {favoriteProducts &&
+            favoriteProducts.map((product: Product) => (
+              <Grid item sm={12} md={4} lg={3} key={product.id}>
+                <ProductCard product={product} />
               </Grid>
-            </Grid>
-          ))}
+            ))}
         </Grid>
       </Grid>
     </Container>
