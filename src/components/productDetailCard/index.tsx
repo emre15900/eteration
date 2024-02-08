@@ -14,6 +14,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch } from "react-redux";
 import { addItem } from "@/store/apps/cartSlice";
+import { addToFavorites } from "@/store/apps/favoritesSlice";
 
 interface Product {
   id: number;
@@ -41,7 +42,7 @@ const ProductDetailCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   const handleAddToFavorites = () => {
-    console.log(`Added ${product.name} to favorites`);
+    dispatch(addToFavorites(product.id));
     setFavorites(!favorites);
   };
 

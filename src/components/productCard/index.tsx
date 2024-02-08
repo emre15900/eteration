@@ -39,7 +39,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   const handleAddToFavorites = () => {
-    console.log(`Added ${product.name} to favorites`);
     dispatch(addToFavorites(product.id));
     setFavorites(!favorites);
   };
