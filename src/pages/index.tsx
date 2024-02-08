@@ -30,6 +30,10 @@ function HomePage() {
       )
     : products;
 
+  const totalFilteredItemsCount = filteredProducts.length;
+
+  console.log("filteredProducts:", filteredProducts);
+
   const [activePage, setActivePage] = useState(1);
   const itemsPerPage = 12;
 
@@ -40,7 +44,7 @@ function HomePage() {
   const handlePageChange = (pageNumber: number) => {
     setActivePage(pageNumber);
   };
-  
+
   const indexOfLastItem = activePage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredProducts.slice(
@@ -77,8 +81,8 @@ function HomePage() {
     });
   };
 
-//   console.log("Brands:", selectedBrands);
-//   console.log("Models:", selectedModels);
+  //   console.log("Brands:", selectedBrands);
+  //   console.log("Models:", selectedModels);
 
   const brands = [
     { label: "Apple", value: "apple" },
@@ -153,7 +157,7 @@ function HomePage() {
                     <Pagination
                       activePage={activePage}
                       itemsCountPerPage={itemsPerPage}
-                      totalItemsCount={products.length}
+                      totalItemsCount={totalFilteredItemsCount}
                       pageRangeDisplayed={5}
                       onChange={handlePageChange}
                       itemClass="page-item"
