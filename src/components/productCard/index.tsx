@@ -12,6 +12,8 @@ import EButton from "@/components/e-button";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
+import Link from "next/link";
+
 interface Product {
   id: number;
   brand: string;
@@ -121,7 +123,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               </Tooltip>
             </Grid>
           </Grid>
-          <Grid onClick={handleDetails}>
+          <Link href={`/products/${product.id}`}>
             <Grid
               sx={{
                 backgroundColor: "#66FF84",
@@ -148,7 +150,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 </IconButton>
               </Tooltip>
             </Grid>
-          </Grid>
+          </Link>
         </Grid>
       </Grid>
     </Card>
