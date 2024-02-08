@@ -3,6 +3,8 @@ import { Grid, Card, Typography, Divider } from "@mui/material";
 import EButton from "../e-button";
 import { useSelector } from "react-redux";
 import { selectCartItems } from "@/store/apps/cartSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CheckOut() {
   const cartItems = useSelector(selectCartItems);
@@ -11,6 +13,11 @@ function CheckOut() {
     (acc: any, item: any) => acc + item.price * item.quantity,
     0
   );
+
+  const notify = () =>
+    toast.success(
+      `Your order has been received! Total Payment: ${totalPrice}₺`
+    );
 
   return (
     <Grid>
@@ -27,9 +34,10 @@ function CheckOut() {
             {totalPrice}₺
           </Typography>
         </Grid>
-        <Grid sx={{ mt: 1.5 }}>
+        <Grid onClick={notify} sx={{ mt: 1.5 }}>
           <EButton title="Checkout" padding="7px 2rem" />
         </Grid>
+        <ToastContainer />
       </Card>
     </Grid>
   );
