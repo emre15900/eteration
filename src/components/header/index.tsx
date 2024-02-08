@@ -22,9 +22,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCartItems } from "@/store/apps/cartSlice";
-import { useDispatch } from "react-redux";
 import { setSearchQuery } from "@/store/apps/searchSlice";
 
 interface userProfile {
@@ -50,6 +49,8 @@ const Header = React.memo(() => {
   const dispatch = useDispatch();
   const responsive = useMediaQuery("(max-width:728px)");
   const cartItems = useSelector(selectCartItems);
+
+  const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0); 
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -255,7 +256,7 @@ const Header = React.memo(() => {
             </Tooltip>
             <Tooltip title="Shopping Cart">
               <IconButton sx={{ p: 0 }}>
-                <Badge badgeContent={cartItems.length} color="error">
+                <Badge badgeContent={totalQuantity} color="error">
                   <ShoppingCartOutlinedIcon
                     sx={{
                       fontSize: 32,
