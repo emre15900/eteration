@@ -59,9 +59,19 @@ function Cart() {
                   gap: 2,
                 }}
               >
-                <Typography variant="subtitle2" sx={{ color: "#ffffff" }}>
-                  {item.name}
-                </Typography>
+                <Grid sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <Grid sx={{ maxWidth: "50px" }}>
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      width="100%"
+                      style={{ borderRadius: "10px" }}
+                    />
+                  </Grid>
+                  <Typography variant="subtitle2" sx={{ color: "#ffffff" }}>
+                    {item.name}
+                  </Typography>
+                </Grid>
                 <Typography
                   variant="subtitle2"
                   sx={{ color: "#66FF84", fontWeight: 800 }}

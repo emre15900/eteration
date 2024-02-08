@@ -25,6 +25,9 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCartItems } from "@/store/apps/cartSlice";
 import { setSearchQuery } from "@/store/apps/searchSlice";
+import { selectFavorites } from "@/store/apps/favoritesSlice";
+import { RootState } from "@/store/store";
+import Link from "next/link";
 
 interface userProfile {
   id: number;
@@ -48,9 +51,12 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const Header = React.memo(() => {
   const dispatch = useDispatch();
   const responsive = useMediaQuery("(max-width:728px)");
-  const cartItems = useSelector(selectCartItems);
+  const cartItems = useSelector((state: RootState) => selectCartItems(state));
+  const favorites = useSelector((state: RootState) => selectFavorites(state));
 
-  const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0); 
+  const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+
+  const favoritesCount = favorites.length;
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -241,19 +247,23 @@ const Header = React.memo(() => {
               </IconButton>
             </Tooltip>
 
-            <Tooltip title="Favorites">
-              <IconButton sx={{ p: 0 }}>
-                <FavoriteBorderIcon
-                  sx={{
-                    fontSize: 32,
-                    color: "#ffffff",
-                    ml: 0.7,
-                    mr: 0.7,
-                    display: { xs: "none", md: "block" },
-                  }}
-                />
-              </IconButton>
-            </Tooltip>
+            <Link href="/favorites">
+              <Tooltip title="Favorites">
+                <IconButton sx={{ p: 0 }}>
+                  <Badge badgeContent={favoritesCount} color="error">
+                    <FavoriteBorderIcon
+                      sx={{
+                        fontSize: 32,
+                        color: "#ffffff",
+                        ml: 0.7,
+                        mr: 0.7,
+                        display: { xs: "none", md: "block" },
+                      }}
+                    />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
+            </Link>
             <Tooltip title="Shopping Cart">
               <IconButton sx={{ p: 0 }}>
                 <Badge badgeContent={totalQuantity} color="error">

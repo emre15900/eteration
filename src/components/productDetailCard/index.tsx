@@ -6,6 +6,7 @@ import {
   Chip,
   Tooltip,
   IconButton,
+  useMediaQuery,
 } from "@mui/material";
 
 import EButton from "@/components/e-button";
@@ -29,6 +30,8 @@ interface ProductCardProps {
 }
 
 const ProductDetailCard: React.FC<ProductCardProps> = ({ product }) => {
+  const bigScreen = useMediaQuery("(max-width:1300px)");
+
   const dispatch = useDispatch();
 
   const [favorites, setFavorites] = useState(false);
@@ -58,6 +61,7 @@ const ProductDetailCard: React.FC<ProductCardProps> = ({ product }) => {
         background: "#000000",
         display: "flex",
         gap: 2,
+        flexDirection: bigScreen ? "column" : "row",
       }}
     >
       <img

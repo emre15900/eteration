@@ -13,6 +13,7 @@ import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch } from "react-redux";
 import { addItem } from "@/store/apps/cartSlice";
+import { addToFavorites } from "@/store/apps/favoritesSlice";
 import Link from "next/link";
 
 interface Product {
@@ -39,6 +40,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const handleAddToFavorites = () => {
     console.log(`Added ${product.name} to favorites`);
+    dispatch(addToFavorites(product.id));
     setFavorites(!favorites);
   };
 
