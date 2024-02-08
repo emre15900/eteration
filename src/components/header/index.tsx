@@ -13,6 +13,7 @@ import {
   MenuItem,
   InputBase,
   useMediaQuery,
+  Badge,
 } from "@mui/material";
 
 import { styled, alpha } from "@mui/material/styles";
@@ -21,6 +22,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
+import { useSelector } from "react-redux";
+import { selectCartItems } from "@/store/apps/cartSlice";
 import { useDispatch } from "react-redux";
 import { setSearchQuery } from "@/store/apps/searchSlice";
 
@@ -44,9 +47,9 @@ const pages = ["Home"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Header = React.memo(() => {
-  const responsive = useMediaQuery("(max-width:728px)");
-
   const dispatch = useDispatch();
+  const responsive = useMediaQuery("(max-width:728px)");
+  const cartItems = useSelector(selectCartItems);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -54,11 +57,6 @@ const Header = React.memo(() => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
-
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const searchQuery = event.target.value;
-    dispatch(setSearchQuery(searchQuery));
-  };
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -73,6 +71,11 @@ const Header = React.memo(() => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const searchQuery = event.target.value;
+    dispatch(setSearchQuery(searchQuery));
   };
 
   const Search = styled("div")(({ theme }) => ({
@@ -252,13 +255,15 @@ const Header = React.memo(() => {
             </Tooltip>
             <Tooltip title="Shopping Cart">
               <IconButton sx={{ p: 0 }}>
-                <ShoppingCartOutlinedIcon
-                  sx={{
-                    fontSize: 32,
-                    color: "#ffffff",
-                    display: { xs: "none", md: "block" },
-                  }}
-                />
+                <Badge badgeContent={cartItems.length} color="error">
+                  <ShoppingCartOutlinedIcon
+                    sx={{
+                      fontSize: 32,
+                      color: "#ffffff",
+                      display: { xs: "none", md: "block" },
+                    }}
+                  />
+                </Badge>
               </IconButton>
             </Tooltip>
 
