@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { fetchProducts } from "@/store/apps/productsSlice";
 import ProductDetailCard from "@/components/productDetailCard";
-import { Typography, Grid, Container } from "@mui/material";
+import { Typography, Grid, Container, useMediaQuery } from "@mui/material";
 import ShoppingCart from "@/components/shoppingCart";
 import AppCheckout from "@/components/appCheckout";
 
 function ProductDetail() {
+  const responsive = useMediaQuery("(max-width:728px)");
+
   const router = useRouter();
   const { id } = router.query;
   const dispatch = useDispatch();
@@ -22,8 +24,8 @@ function ProductDetail() {
   const loading = useSelector((state: RootState) => state.products.loading);
 
   return (
-    <Container maxWidth="xl" sx={{ mt: 5, mb: 5 }}>
-      <Grid container spacing={6}>
+    <Container maxWidth="xl" sx={{ mt: responsive ? 2 : 5, mb: 5 }}>
+      <Grid container spacing={2}>
         <Grid item xs={12} sm={12} md={8} lg={9}>
           <Grid>
             {loading ? (

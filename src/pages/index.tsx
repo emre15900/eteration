@@ -102,7 +102,7 @@ function HomePage() {
     <Grid style={{ width: "100%" }}>
       <Container maxWidth="xl" sx={{ mt: 3 }}>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={3} md={3}>
+          <Grid item xs={12} sm={4} md={4} lg={3}>
             <Grid>
               <Grid>
                 <Sorter />
@@ -125,7 +125,7 @@ function HomePage() {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={7} md={7}>
+          <Grid item xs={12} sm={8} md={8} lg={7}>
             <Grid>
               <Typography
                 variant="h4"
@@ -183,12 +183,12 @@ function HomePage() {
               )}
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={2} md={2}>
+          <Grid item xs={12} sm={12} md={12} lg={2}>
             <Grid>
               {/* <Cart /> */}
               <ShoppingCart />
             </Grid>
-            <Grid sx={{ mt: 2 }}>
+            <Grid sx={{ mt: 2, mb: 5 }}>
               {/* <CheckOut /> */}
               <AppCheckout />
             </Grid>

@@ -180,14 +180,20 @@ const Header = React.memo(() => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Link href="/">
+                    <Typography textAlign="center">{page}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
               <MenuItem key={"favorites"} onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Favorites</Typography>
+                <Link href="/favorites">
+                  <Typography textAlign="center">Favorites</Typography>
+                </Link>
               </MenuItem>
               <MenuItem key={"shopping card"} onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Shopping Card</Typography>
+                <Link href="/products/1">
+                  <Typography textAlign="center">Product Detail</Typography>
+                </Link>
               </MenuItem>
             </Menu>
           </Box>
@@ -212,13 +218,15 @@ const Header = React.memo(() => {
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
+              <Link href="/">
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page}
+                </Button>
+              </Link>
             ))}
           </Box>
 
@@ -249,8 +257,12 @@ const Header = React.memo(() => {
 
             <Link href="/favorites">
               <Tooltip title="Favorites">
-                <IconButton sx={{ p: 0, ml: .7, mr: 1.7 }}>
-                  <Badge badgeContent={favoritesCount} color="error">
+                <IconButton sx={{ p: 0, ml: 0.7, mr: 1.7 }}>
+                  <Badge
+                    badgeContent={favoritesCount}
+                    color="error"
+                    sx={{ display: responsive ? "none" : null }}
+                  >
                     <FavoriteBorderIcon
                       sx={{
                         fontSize: 32,
@@ -265,7 +277,11 @@ const Header = React.memo(() => {
             </Link>
             <Tooltip title="Shopping Cart">
               <IconButton sx={{ p: 0 }}>
-                <Badge badgeContent={totalQuantity} color="error">
+                <Badge
+                  badgeContent={totalQuantity}
+                  color="error"
+                  sx={{ display: responsive ? "none" : null }}
+                >
                   <ShoppingCartOutlinedIcon
                     sx={{
                       fontSize: 32,
