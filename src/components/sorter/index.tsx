@@ -10,14 +10,13 @@ import {
   Divider,
 } from "@mui/material";
 
-function Sorter() {
+function Sorter({ handleSort }: { handleSort: (value: string) => void }) {
   const [selectedValue, setSelectedValue] = React.useState("oldToNew");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
+    handleSort(event.target.value);
   };
-
-  // console.log("Sorter:", selectedValue);
 
   return (
     <Grid>

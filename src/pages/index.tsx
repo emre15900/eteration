@@ -15,6 +15,8 @@ import { fetchProducts } from "@/store/apps/productsSlice";
 import ShoppingCart from "@/components/shoppingCart";
 import AppCheckout from "@/components/appCheckout";
 
+import { fetchProductsSuccess } from "@/store/apps/productsSlice";
+
 function HomePage() {
   const dispatch: AppDispatch = useDispatch();
 
@@ -98,6 +100,42 @@ function HomePage() {
     { label: "iPhone 13", value: "iphone13" },
   ];
 
+  const handleSort = (value: string) => {
+    let sortedProducts = [...products]; 
+
+    switch (value) {
+      case "oldToNew":
+        sortedProducts.sort(
+          (a, b) =>
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        );
+        break;
+      case "newToOld":
+        sortedProducts.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+        break;
+      case "hightToLow":
+        sortedProducts.sort(
+          (a, b) => parseFloat(b.price) - parseFloat(a.price)
+        );
+        break;
+      case "lowToHight":
+        sortedProducts.sort(
+          (a, b) => parseFloat(a.price) - parseFloat(b.price)
+        );
+        break;
+      default:
+        break;
+    }
+
+    console.log(value);
+    console.log(sortedProducts);
+
+    dispatch(fetchProductsSuccess(sortedProducts));
+  };
+
   return (
     <Grid style={{ width: "100%" }}>
       <Container maxWidth="xl" sx={{ mt: 3 }}>
@@ -105,7 +143,7 @@ function HomePage() {
           <Grid item xs={12} sm={4} md={4} lg={3}>
             <Grid>
               <Grid>
-                <Sorter />
+                <Sorter handleSort={handleSort} />
               </Grid>
               <Grid sx={{ mt: 2 }}>
                 <Brands
