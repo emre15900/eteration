@@ -66,7 +66,7 @@ function Cart() {
                 }}
               >
                 <Grid sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <Grid sx={{ maxWidth: "50px" }}>
+                  <Grid sx={{ width: "50px", minWidth: "50px" }}>
                     <img
                       src={item.image}
                       alt={item.name}

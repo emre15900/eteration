@@ -69,8 +69,6 @@ function HomePage() {
     setBrands(allBrands);
     setModels(allModels);
 
-    console.log("brands:", brands);
-    console.log("models:", models);
   }, [products]);
 
   const handleBrandChange = (value: any) => {
