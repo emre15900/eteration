@@ -37,7 +37,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   useEffect(() => {
     setIsFavorite(favorites.includes(product.id));
-  }, [favorites]);
+  }, [favorites, product.id]);
 
   const handleAddToCart = () => {
     dispatch(addItem({ ...product, quantity: 1 }));
@@ -48,7 +48,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   const limitText = (text: string, maxLength: number) => {
-    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+    return text.length > maxLength
+      ? text.substring(0, maxLength) + "..."
+      : text;
   };
 
   return (

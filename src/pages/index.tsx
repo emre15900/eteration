@@ -153,8 +153,8 @@ function HomePage() {
                   {totalFilteredItemsCount > 0 ? (
                     <>
                       <Grid container spacing={1}>
-                        {currentItems.map((product: any) => (
-                          <Grid item xs={12} sm={6} md={4} lg={3}>
+                        {currentItems.map((product: any, index: number) => (
+                          <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
                             <ProductCard product={product} />
                           </Grid>
                         ))}

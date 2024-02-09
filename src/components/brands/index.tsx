@@ -145,4 +145,6 @@ const Brands = React.memo(
   }
 );
 
+Brands.displayName = "Brands";
+
 export default Brands;

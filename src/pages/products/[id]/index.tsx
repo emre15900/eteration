@@ -17,6 +17,7 @@ function ProductDetail() {
   const products = useSelector((state: RootState) => state.products.products);
 
   useEffect(() => {
+    // @ts-ignore
     dispatch(fetchProducts());
   }, [dispatch]);
 

@@ -6,7 +6,7 @@ function Products() {
 
   useEffect(() => {
     router.push("/");
-  }, []);
+  }, [router]);
 
   return <div>Products</div>;
 }

@@ -217,8 +217,8 @@ const Header = React.memo(() => {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Link href="/">
+            {pages.map((page: any, index: number) => (
+              <Link key={index} href="/">
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
@@ -321,5 +321,7 @@ const Header = React.memo(() => {
     </AppBar>
   );
 });
+
+Header.displayName = 'Header';
 
 export default Header;
