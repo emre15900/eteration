@@ -77,6 +77,10 @@ const Brands = React.memo(
       },
     }));
 
+    const handleBrandCheckboxChange = (value: string) => {
+      onBrandChange(value);
+    };
+  
     return (
       <Grid>
         <Card
@@ -116,8 +120,8 @@ const Brands = React.memo(
                 value={brand.value}
                 control={
                   <Checkbox
-                    checked={selectedBrands.includes(brand.value)}
-                    onChange={onBrandChange}
+                  checked={selectedBrands.includes(brand.value)}
+                    onChange={() => handleBrandCheckboxChange(brand.value)}
                     sx={{
                       color: selectedBrands.includes(brand.value)
                         ? "#66FF84"

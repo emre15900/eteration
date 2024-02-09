@@ -56,52 +56,49 @@ function HomePage() {
     indexOfLastItem
   );
 
-  const [selectedBrands, setSelectedBrands] = useState(["apple"]);
-  const [selectedModels, setSelectedModels] = useState(["iphone13"]);
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [selectedModels, setSelectedModels] = useState<string[]>([]);
 
-  const handleBrandChange = (event: any) => {
-    const brand = event.target.value;
+  const [brands, setBrands] = useState<string[]>([]);
+  const [models, setModels] = useState<string[]>([]);
+
+  useEffect(() => {
+    const allBrands = products.map((product: any) => product.brand);
+    const allModels = products.map((product: any) => product.model);
+
+    setBrands(allBrands);
+    setModels(allModels);
+
+    console.log("brands:", brands);
+    console.log("models:", models);
+  }, [products]);
+
+  const handleBrandChange = (value: any) => {
     setSelectedBrands((prevSelectedBrands) => {
-      if (prevSelectedBrands.includes(brand)) {
-        return prevSelectedBrands.filter(
-          (selectedBrand) => selectedBrand !== brand
-        );
-      } else {
-        return [...prevSelectedBrands, brand];
-      }
+      const nextSelectedBrands = prevSelectedBrands.includes(value)
+        ? prevSelectedBrands.filter((selectedBrand) => selectedBrand !== value)
+        : [...prevSelectedBrands, value];
+
+      console.log("selectedBrands:", nextSelectedBrands);
+
+      return nextSelectedBrands;
     });
   };
 
-  const handleModelChange = (event: any) => {
-    const model = event.target.value;
+  const handleModelChange = (value: string) => {
     setSelectedModels((prevSelectedModels) => {
-      if (prevSelectedModels.includes(model)) {
-        return prevSelectedModels.filter(
-          (selectedModel) => selectedModel !== model
-        );
-      } else {
-        return [...prevSelectedModels, model];
-      }
+      const nextSelectedModels = prevSelectedModels.includes(value)
+        ? prevSelectedModels.filter((selectedModel) => selectedModel !== value)
+        : [...prevSelectedModels, value];
+
+      console.log("selectedModels:", nextSelectedModels);
+
+      return nextSelectedModels;
     });
   };
-
-  //   console.log("Brands:", selectedBrands);
-  //   console.log("Models:", selectedModels);
-
-  const brands = [
-    { label: "Apple", value: "apple" },
-    { label: "Samsung", value: "samsung" },
-    { label: "Huawei", value: "huawei" },
-  ];
-
-  const models = [
-    { label: "iPhone 11", value: "iphone11" },
-    { label: "iPhone 12", value: "iphone12" },
-    { label: "iPhone 13", value: "iphone13" },
-  ];
 
   const handleSort = (value: string) => {
-    let sortedProducts = [...products]; 
+    let sortedProducts = [...products];
 
     switch (value) {
       case "oldToNew":
@@ -146,20 +143,28 @@ function HomePage() {
                 <Sorter handleSort={handleSort} />
               </Grid>
               <Grid sx={{ mt: 2 }}>
-                <Brands
-                  title="Brands"
-                  brands={brands}
-                  selectedBrands={selectedBrands}
-                  onBrandChange={handleBrandChange}
-                />
-              </Grid>
-              <Grid sx={{ mt: 2 }}>
-                <Brands
-                  title="Models"
-                  brands={models}
-                  selectedBrands={selectedModels}
-                  onBrandChange={handleModelChange}
-                />
+                <Grid sx={{ mt: 2 }}>
+                  <Brands
+                    title="Brands"
+                    brands={brands.map((brand) => ({
+                      label: brand,
+                      value: brand,
+                    }))}
+                    selectedBrands={selectedBrands}
+                    onBrandChange={handleBrandChange}
+                  />
+                </Grid>
+                <Grid sx={{ mt: 2 }}>
+                  <Brands
+                    title="Models"
+                    brands={models.map((model) => ({
+                      label: model,
+                      value: model,
+                    }))}
+                    selectedBrands={selectedModels}
+                    onBrandChange={handleModelChange}
+                  />
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
