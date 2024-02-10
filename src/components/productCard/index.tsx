@@ -15,6 +15,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { addItem } from "@/store/apps/cartSlice";
 import { addToFavorites, selectFavorites } from "@/store/apps/favoritesSlice";
 import Link from "next/link";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Product {
   id: number;
@@ -41,6 +43,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const handleAddToCart = () => {
     dispatch(addItem({ ...product, quantity: 1 }));
+    // toast.success(`Product added to your cart! ${product.brand}`);
   };
 
   const handleAddToFavorites = () => {
@@ -93,6 +96,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         >
           <EButton title="Add to Cart" padding="7px 2rem" />
         </Grid>
+        <ToastContainer />
         <Grid
           sx={{
             display: "flex",

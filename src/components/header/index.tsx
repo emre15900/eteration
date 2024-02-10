@@ -132,23 +132,25 @@ const Header = React.memo(() => {
     <AppBar position="static" sx={{ background: "#000000" }}>
       <Container maxWidth="xl" sx={{ p: "0 .25rem 0 .1rem" }}>
         <Toolbar disableGutters>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "Montserrat",
-              fontWeight: 700,
-              letterSpacing: ".05rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            Eteration
-          </Typography>
+          <Link href="/">
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "Montserrat",
+                fontWeight: 700,
+                letterSpacing: ".05rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              Eteration
+            </Typography>
+          </Link>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="small"
@@ -201,7 +203,7 @@ const Header = React.memo(() => {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 1,
               display: { xs: "flex", md: "none" },
@@ -255,7 +257,10 @@ const Header = React.memo(() => {
               </IconButton>
             </Tooltip>
 
-            <Link href="/favorites">
+            <Link
+              href="/favorites"
+              style={{ display: responsive ? "none" : "" }}
+            >
               <Tooltip title="Favorites">
                 <IconButton sx={{ p: 0, ml: 0.7, mr: 1.7 }}>
                   <Badge
@@ -275,7 +280,10 @@ const Header = React.memo(() => {
                 </IconButton>
               </Tooltip>
             </Link>
-            <Tooltip title="Shopping Cart">
+            <Tooltip
+              title="Shopping Cart"
+              sx={{ display: responsive ? "none" : null }}
+            >
               <IconButton sx={{ p: 0 }}>
                 <Badge
                   badgeContent={totalQuantity}
@@ -322,6 +330,6 @@ const Header = React.memo(() => {
   );
 });
 
-Header.displayName = 'Header';
+Header.displayName = "Header";
 
 export default Header;

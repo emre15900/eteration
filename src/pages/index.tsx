@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Header from "@/components/header";
-import { Grid, Typography, Container, Divider } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  Container,
+  Divider,
+  useMediaQuery,
+} from "@mui/material";
 import Sorter from "@/components/sorter";
 import Brands from "@/components/brands";
 import ProductCard from "@/components/productCard";
@@ -19,6 +25,7 @@ import { fetchProductsSuccess } from "@/store/apps/productsSlice";
 
 function HomePage() {
   const dispatch: AppDispatch = useDispatch();
+  const responsive = useMediaQuery("(max-width:728px)");
 
   const products = useSelector((state: RootState) => state.products.products);
   const loading = useSelector((state: RootState) => state.products.loading);
@@ -223,7 +230,7 @@ function HomePage() {
                           activePage={activePage}
                           itemsCountPerPage={itemsPerPage}
                           totalItemsCount={totalFilteredItemsCount}
-                          pageRangeDisplayed={5}
+                          pageRangeDisplayed={responsive ? 3 : 5}
                           onChange={handlePageChange}
                           itemClass="page-item"
                           linkClass="page-link"

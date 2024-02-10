@@ -84,7 +84,11 @@ const Brands = ({ brands, selectedBrands, onBrandChange, title }: any) => {
   return (
     <Grid>
       <Card
-        sx={{ background: "#000000", borderRadius: "20px", padding: "20px" }}
+        sx={{
+          background: "#000000",
+          borderRadius: "20px",
+          padding: "20px",
+        }}
       >
         <Grid
           sx={{
@@ -113,36 +117,39 @@ const Brands = ({ brands, selectedBrands, onBrandChange, title }: any) => {
 
         <Divider sx={{ background: "#ffffff", mt: 1, mb: 1 }} />
 
-        <FormGroup>
-          {filteredBrands.map((brand: any) => (
-            <FormControlLabel
-              key={brand.value}
-              value={brand.value}
-              control={
-                <Checkbox
-                  checked={selectedBrands.includes(brand.value)}
-                  onChange={() => handleBrandCheckboxChange(brand.value)}
+        <Grid sx={{ maxHeight: "300px", overflowY: "auto" }}>
+          <FormGroup>
+            {filteredBrands &&
+              filteredBrands.map((brand: any) => (
+                <FormControlLabel
+                  key={brand.value}
+                  value={brand.value}
+                  control={
+                    <Checkbox
+                      checked={selectedBrands.includes(brand.value)}
+                      onChange={() => handleBrandCheckboxChange(brand.value)}
+                      sx={{
+                        color: selectedBrands.includes(brand.value)
+                          ? "#66FF84"
+                          : "#ffffff",
+                        "&.Mui-checked": {
+                          color: selectedBrands.includes(brand.value)
+                            ? "#66FF84"
+                            : "#ffffff",
+                        },
+                      }}
+                    />
+                  }
+                  label={brand.label}
                   sx={{
                     color: selectedBrands.includes(brand.value)
                       ? "#66FF84"
                       : "#ffffff",
-                    "&.Mui-checked": {
-                      color: selectedBrands.includes(brand.value)
-                        ? "#66FF84"
-                        : "#ffffff",
-                    },
                   }}
                 />
-              }
-              label={brand.label}
-              sx={{
-                color: selectedBrands.includes(brand.value)
-                  ? "#66FF84"
-                  : "#ffffff",
-              }}
-            />
-          ))}
-        </FormGroup>
+              ))}
+          </FormGroup>
+        </Grid>
       </Card>
     </Grid>
   );
