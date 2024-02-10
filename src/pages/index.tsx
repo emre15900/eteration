@@ -68,7 +68,6 @@ function HomePage() {
 
     setBrands(allBrands);
     setModels(allModels);
-
   }, [products]);
 
   const handleBrandChange = (value: any) => {
@@ -130,6 +129,25 @@ function HomePage() {
 
     dispatch(fetchProductsSuccess(sortedProducts));
   };
+
+  const handleFilterChange = () => {
+    const filteredByBrandsProducts = products.filter((product: any) => {
+      if (
+        (selectedBrands.length === 0 ||
+          selectedBrands.includes(product.brand)) &&
+        (selectedModels.length === 0 || selectedModels.includes(product.model))
+      ) {
+        return true;
+      }
+      return false;
+    });
+
+    dispatch(fetchProductsSuccess(filteredByBrandsProducts));
+  };
+
+  useEffect(() => {
+    handleFilterChange();
+  }, [selectedBrands, selectedModels]);
 
   return (
     <Grid style={{ width: "100%" }}>
