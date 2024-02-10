@@ -1,6 +1,8 @@
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-const NoSSRCart = dynamic(() => import('@/components/checkout'), { ssr: false });
+const NoSSRCart = dynamic(() => import("@/components/checkout"), {
+  ssr: false,
+});
 
 const AppCheckout = () => {
   return <NoSSRCart />;

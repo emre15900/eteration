@@ -155,6 +155,4 @@ const Brands = ({ brands, selectedBrands, onBrandChange, title }: any) => {
   );
 };
 
-// Brands.displayName = "Brands";
-
 export default Brands;

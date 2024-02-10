@@ -9,9 +9,8 @@ import {
   decreaseQuantity,
   clearCart,
 } from "@/store/apps/cartSlice";
-import EButton from "../e-button";
 
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Cart() {
@@ -28,7 +27,6 @@ function Cart() {
 
   const handleClearCart = () => {
     dispatch(clearCart());
-    // toast.success(`Products deleted from cart!`);
   };
 
   return (

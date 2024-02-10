@@ -117,7 +117,9 @@ const ProductDetailCard: React.FC<ProductCardProps> = ({ product }) => {
                 backgroundColor: isFavorite ? "#ffffff" : "#66FF84",
                 borderRadius: "30px",
                 p: "5px 5.5px",
-                border: isFavorite ? "1px solid red" : "1px solid rgb(6 159 36)",
+                border: isFavorite
+                  ? "1px solid red"
+                  : "1px solid rgb(6 159 36)",
                 "&:hover": {
                   border: "1px solid rgb(6 159 36)",
                   backgroundColor: "#00b223",

@@ -2,13 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { selectFavorites } from "@/store/apps/favoritesSlice";
 import { RootState } from "@/store/store";
-import {
-  Typography,
-  Grid,
-  Container,
-  CircularProgress,
-  Divider,
-} from "@mui/material";
+import { Typography, Grid, Container, Divider } from "@mui/material";
 import ProductCard from "@/components/productCard";
 import ShoppingCart from "@/components/shoppingCart";
 import CheckOut from "@/components/checkout";
@@ -46,7 +40,7 @@ const Favorites = () => {
                 ))}
               </Grid>
             </Grid>
-            <Grid item xs={12}  sm={12} md={4} lg={3}>
+            <Grid item xs={12} sm={12} md={4} lg={3}>
               <Grid>
                 <ShoppingCart />
               </Grid>

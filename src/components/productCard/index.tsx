@@ -43,7 +43,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const handleAddToCart = () => {
     dispatch(addItem({ ...product, quantity: 1 }));
-    // toast.success(`Product added to your cart! ${product.brand}`);
   };
 
   const handleAddToFavorites = () => {

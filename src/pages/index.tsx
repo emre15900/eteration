@@ -33,8 +33,6 @@ function HomePage() {
     (state: RootState) => state.search.searchQuery
   );
 
-  // console.log("searchQuery:", searchQuery);
-
   const filteredProducts = searchQuery
     ? products.filter((product: any) =>
         product.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -42,8 +40,6 @@ function HomePage() {
     : products;
 
   const totalFilteredItemsCount = filteredProducts.length;
-
-  // console.log("filteredProducts:", filteredProducts);
 
   const [activePage, setActivePage] = useState(1);
   const itemsPerPage = 12;
@@ -251,11 +247,9 @@ function HomePage() {
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={2}>
             <Grid>
-              {/* <Cart /> */}
               <ShoppingCart />
             </Grid>
             <Grid sx={{ mt: 2, mb: 5 }}>
-              {/* <CheckOut /> */}
               <AppCheckout />
             </Grid>
           </Grid>
