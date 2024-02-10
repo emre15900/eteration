@@ -23,6 +23,7 @@ import AppCheckout from "@/components/appCheckout";
 
 import { fetchProductsSuccess } from "@/store/apps/productsSlice";
 
+
 function HomePage() {
   const dispatch: AppDispatch = useDispatch();
   const responsive = useMediaQuery("(max-width:728px)");
